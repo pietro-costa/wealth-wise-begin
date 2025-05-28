@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,27 +29,27 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-lg">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-lg bg-slate-800 border-slate-700">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-gray-800">
+          <CardTitle className="text-2xl font-bold text-white">
             💰 FinanceTracker
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-slate-300">
             Start your journey to better financial health
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="space-y-4">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 bg-slate-700">
+              <TabsTrigger value="login" className="text-white data-[state=active]:bg-yellow-500 data-[state=active]:text-slate-900">Login</TabsTrigger>
+              <TabsTrigger value="register" className="text-white data-[state=active]:bg-yellow-500 data-[state=active]:text-slate-900">Register</TabsTrigger>
             </TabsList>
             
             <TabsContent value="login">
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-white">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -55,10 +57,11 @@ const Index = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="text-white">Password</Label>
                   <Input
                     id="password"
                     type="password"
@@ -66,9 +69,10 @@ const Index = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                   />
                 </div>
-                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button type="submit" className="w-full bg-slate-700 hover:bg-slate-600 text-white">
                   Login
                 </Button>
               </form>
@@ -77,7 +81,7 @@ const Index = () => {
             <TabsContent value="register">
               <form onSubmit={handleRegister} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name" className="text-white">Full Name</Label>
                   <Input
                     id="name"
                     type="text"
@@ -85,10 +89,11 @@ const Index = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
+                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="reg-email">Email</Label>
+                  <Label htmlFor="reg-email" className="text-white">Email</Label>
                   <Input
                     id="reg-email"
                     type="email"
@@ -96,10 +101,11 @@ const Index = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="reg-password">Password</Label>
+                  <Label htmlFor="reg-password" className="text-white">Password</Label>
                   <Input
                     id="reg-password"
                     type="password"
@@ -107,9 +113,10 @@ const Index = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
                   />
                 </div>
-                <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
+                <Button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold">
                   Create Account
                 </Button>
               </form>
@@ -125,7 +132,7 @@ const Dashboard = () => {
   const [currentView, setCurrentView] = useState("dashboard");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-900">
       <Navigation currentView={currentView} setCurrentView={setCurrentView} />
       <main className="container mx-auto px-4 py-8">
         {currentView === "dashboard" && <DashboardView />}
@@ -138,30 +145,30 @@ const Dashboard = () => {
 
 const Navigation = ({ currentView, setCurrentView }: { currentView: string; setCurrentView: (view: string) => void }) => {
   return (
-    <nav className="bg-white shadow-sm border-b">
+    <nav className="bg-slate-800 shadow-sm border-b border-slate-700">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4">
-            <h1 className="text-xl font-bold text-gray-800">💰 FinanceTracker</h1>
+            <h1 className="text-xl font-bold text-white">💰 FinanceTracker</h1>
             <div className="flex space-x-1">
               <Button
                 variant={currentView === "dashboard" ? "default" : "ghost"}
                 onClick={() => setCurrentView("dashboard")}
-                className="text-sm"
+                className={`text-sm ${currentView === "dashboard" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
                 Dashboard
               </Button>
               <Button
                 variant={currentView === "add-expense" ? "default" : "ghost"}
                 onClick={() => setCurrentView("add-expense")}
-                className="text-sm"
+                className={`text-sm ${currentView === "add-expense" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
                 Add Expense
               </Button>
               <Button
                 variant={currentView === "analytics" ? "default" : "ghost"}
                 onClick={() => setCurrentView("analytics")}
-                className="text-sm"
+                className={`text-sm ${currentView === "analytics" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
                 Analytics
               </Button>
@@ -188,43 +195,116 @@ const DashboardView = () => {
 
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
+  const categoryData = Object.entries(categoryTotals).map(([category, amount]) => ({
+    category,
+    amount,
+  }));
+
+  const monthlyData = [
+    { month: "Jan", expenses: 1250 },
+    { month: "Feb", expenses: 1100 },
+    { month: "Mar", expenses: 1350 },
+    { month: "Apr", expenses: 1200 },
+    { month: "May", expenses: 1590 },
+  ];
+
+  const pieColors = ["#fbbf24", "#f59e0b", "#d97706", "#b45309", "#92400e"];
+
+  const chartConfig = {
+    expenses: {
+      label: "Expenses",
+      color: "#fbbf24",
+    },
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-gray-800">Dashboard</h2>
+        <h2 className="text-3xl font-bold text-white">Dashboard</h2>
         <div className="text-right">
-          <p className="text-sm text-gray-600">Total This Month</p>
-          <p className="text-2xl font-bold text-red-600">${totalExpenses.toFixed(2)}</p>
+          <p className="text-sm text-slate-400">Total This Month</p>
+          <p className="text-2xl font-bold text-yellow-500">${totalExpenses.toFixed(2)}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {Object.entries(categoryTotals).map(([category, amount]) => (
-          <Card key={category} className="hover:shadow-lg transition-shadow">
+          <Card key={category} className="hover:shadow-lg transition-shadow bg-slate-800 border-slate-700">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">{category}</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-400">{category}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-gray-800">${amount.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-white">${amount.toFixed(2)}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Expenses by Category</CardTitle>
+            <CardDescription className="text-slate-400">Distribution of your spending</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="amount"
+                    label={({ category, amount }) => `${category}: $${amount.toFixed(2)}`}
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} />
+                    ))}
+                  </Pie>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                </PieChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Monthly Spending</CardTitle>
+            <CardDescription className="text-slate-400">Your expense trends over time</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                  <XAxis dataKey="month" tick={{ fill: '#94a3b8' }} />
+                  <YAxis tick={{ fill: '#94a3b8' }} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="expenses" fill="#fbbf24" />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="bg-slate-800 border-slate-700">
         <CardHeader>
-          <CardTitle>Recent Expenses</CardTitle>
-          <CardDescription>Your latest transactions</CardDescription>
+          <CardTitle className="text-white">Recent Expenses</CardTitle>
+          <CardDescription className="text-slate-400">Your latest transactions</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {expenses.map((expense) => (
-              <div key={expense.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div key={expense.id} className="flex items-center justify-between p-4 border border-slate-700 rounded-lg bg-slate-700/50">
                 <div>
-                  <p className="font-medium">{expense.description}</p>
-                  <p className="text-sm text-gray-600">{expense.category} • {expense.date}</p>
+                  <p className="font-medium text-white">{expense.description}</p>
+                  <p className="text-sm text-slate-400">{expense.category} • {expense.date}</p>
                 </div>
-                <p className="font-bold text-red-600">-${expense.amount.toFixed(2)}</p>
+                <p className="font-bold text-yellow-500">-${expense.amount.toFixed(2)}</p>
               </div>
             ))}
           </div>
@@ -243,7 +323,6 @@ const AddExpenseView = ({ setCurrentView }: { setCurrentView: (view: string) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically save the expense
     console.log("New expense:", { description, amount, category });
     setDescription("");
     setAmount("");
@@ -253,26 +332,27 @@ const AddExpenseView = ({ setCurrentView }: { setCurrentView: (view: string) => 
 
   return (
     <div className="max-w-md mx-auto">
-      <Card>
+      <Card className="bg-slate-800 border-slate-700">
         <CardHeader>
-          <CardTitle>Add New Expense</CardTitle>
-          <CardDescription>Track your spending to stay on budget</CardDescription>
+          <CardTitle className="text-white">Add New Expense</CardTitle>
+          <CardDescription className="text-slate-400">Track your spending to stay on budget</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description" className="text-white">Description</Label>
               <Input
                 id="description"
                 placeholder="What did you spend on?"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
+                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount</Label>
+              <Label htmlFor="amount" className="text-white">Amount</Label>
               <Input
                 id="amount"
                 type="number"
@@ -281,17 +361,18 @@ const AddExpenseView = ({ setCurrentView }: { setCurrentView: (view: string) => 
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
+                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category" className="text-white">Category</Label>
               <select
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-2 border border-slate-600 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-slate-700 text-white"
               >
                 <option value="">Select a category</option>
                 {categories.map((cat) => (
@@ -301,14 +382,14 @@ const AddExpenseView = ({ setCurrentView }: { setCurrentView: (view: string) => 
             </div>
             
             <div className="flex space-x-3 pt-4">
-              <Button type="submit" className="flex-1 bg-green-600 hover:bg-green-700">
+              <Button type="submit" className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold">
                 Add Expense
               </Button>
               <Button 
                 type="button" 
                 variant="outline" 
                 onClick={() => setCurrentView("dashboard")}
-                className="flex-1"
+                className="flex-1 border-slate-600 text-white hover:bg-slate-700"
               >
                 Cancel
               </Button>
@@ -322,99 +403,189 @@ const AddExpenseView = ({ setCurrentView }: { setCurrentView: (view: string) => 
 
 const AnalyticsView = () => {
   const monthlyData = [
-    { month: "Jan", expenses: 1250 },
-    { month: "Feb", expenses: 1100 },
-    { month: "Mar", expenses: 1350 },
-    { month: "Apr", expenses: 1200 },
-    { month: "May", expenses: 1400 },
+    { month: "Jan", expenses: 1250, income: 3000 },
+    { month: "Feb", expenses: 1100, income: 3000 },
+    { month: "Mar", expenses: 1350, income: 3200 },
+    { month: "Apr", expenses: 1200, income: 3100 },
+    { month: "May", expenses: 1400, income: 3300 },
   ];
 
   const categoryData = [
-    { category: "Food", amount: 450, percentage: 35 },
-    { category: "Transportation", amount: 300, percentage: 23 },
-    { category: "Entertainment", amount: 200, percentage: 16 },
-    { category: "Utilities", amount: 180, percentage: 14 },
-    { category: "Other", amount: 150, percentage: 12 },
+    { category: "Food", amount: 450, percentage: 35, color: "#fbbf24" },
+    { category: "Transportation", amount: 300, percentage: 23, color: "#f59e0b" },
+    { category: "Entertainment", amount: 200, percentage: 16, color: "#d97706" },
+    { category: "Utilities", amount: 180, percentage: 14, color: "#b45309" },
+    { category: "Other", amount: 150, percentage: 12, color: "#92400e" },
   ];
+
+  const trendData = [
+    { month: "Jan", food: 420, transport: 280, entertainment: 180 },
+    { month: "Feb", food: 380, transport: 300, entertainment: 160 },
+    { month: "Mar", food: 450, transport: 320, entertainment: 200 },
+    { month: "Apr", food: 410, transport: 290, entertainment: 170 },
+    { month: "May", food: 480, transport: 310, entertainment: 220 },
+  ];
+
+  const chartConfig = {
+    expenses: { label: "Expenses", color: "#fbbf24" },
+    income: { label: "Income", color: "#10b981" },
+    food: { label: "Food", color: "#fbbf24" },
+    transport: { label: "Transportation", color: "#f59e0b" },
+    entertainment: { label: "Entertainment", color: "#d97706" },
+  };
 
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800">Analytics</h2>
+      <h2 className="text-3xl font-bold text-white">Analytics</h2>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-slate-800 border-slate-700">
           <CardHeader>
-            <CardTitle>Monthly Spending Trend</CardTitle>
-            <CardDescription>Your expenses over the last 5 months</CardDescription>
+            <CardTitle className="text-white">Income vs Expenses</CardTitle>
+            <CardDescription className="text-slate-400">Monthly comparison over the last 5 months</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {monthlyData.map((data) => (
-                <div key={data.month} className="flex items-center justify-between">
-                  <span className="font-medium">{data.month}</span>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-500 h-2 rounded-full" 
-                        style={{ width: `${(data.expenses / 1500) * 100}%` }}
-                      ></div>
-                    </div>
-                    <span className="font-bold">${data.expenses}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ChartContainer config={chartConfig} className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                  <XAxis dataKey="month" tick={{ fill: '#94a3b8' }} />
+                  <YAxis tick={{ fill: '#94a3b8' }} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="income" fill="#10b981" name="Income" />
+                  <Bar dataKey="expenses" fill="#fbbf24" name="Expenses" />
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800 border-slate-700">
           <CardHeader>
-            <CardTitle>Spending by Category</CardTitle>
-            <CardDescription>Where your money goes this month</CardDescription>
+            <CardTitle className="text-white">Spending by Category</CardTitle>
+            <CardDescription className="text-slate-400">Detailed breakdown this month</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="amount"
+                    label={({ category, percentage }) => `${category} (${percentage}%)`}
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                </PieChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="bg-slate-800 border-slate-700">
+        <CardHeader>
+          <CardTitle className="text-white">Category Spending Trends</CardTitle>
+          <CardDescription className="text-slate-400">Track how your spending habits change over time</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig} className="h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={trendData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                <XAxis dataKey="month" tick={{ fill: '#94a3b8' }} />
+                <YAxis tick={{ fill: '#94a3b8' }} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Line type="monotone" dataKey="food" stroke="#fbbf24" strokeWidth={2} name="Food" />
+                <Line type="monotone" dataKey="transport" stroke="#f59e0b" strokeWidth={2} name="Transportation" />
+                <Line type="monotone" dataKey="entertainment" stroke="#d97706" strokeWidth={2} name="Entertainment" />
+              </LineChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-slate-800 border-slate-700">
+        <CardHeader>
+          <CardTitle className="text-white">Financial Summary</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-4 bg-slate-700 rounded-lg">
+              <p className="text-sm text-slate-400">Average Monthly</p>
+              <p className="text-2xl font-bold text-yellow-500">$1,260</p>
+            </div>
+            <div className="text-center p-4 bg-slate-700 rounded-lg">
+              <p className="text-sm text-slate-400">Highest Category</p>
+              <p className="text-2xl font-bold text-yellow-500">Food</p>
+            </div>
+            <div className="text-center p-4 bg-slate-700 rounded-lg">
+              <p className="text-sm text-slate-400">Total This Year</p>
+              <p className="text-2xl font-bold text-yellow-500">$6,300</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Category Breakdown</CardTitle>
+            <CardDescription className="text-slate-400">Detailed spending analysis</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {categoryData.map((data) => (
                 <div key={data.category} className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="font-medium">{data.category}</span>
-                    <span className="font-bold">${data.amount}</span>
+                    <span className="font-medium text-white">{data.category}</span>
+                    <span className="font-bold text-yellow-500">${data.amount}</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-slate-700 rounded-full h-2">
                     <div 
-                      className="bg-green-500 h-2 rounded-full" 
-                      style={{ width: `${data.percentage}%` }}
+                      className="h-2 rounded-full" 
+                      style={{ width: `${data.percentage}%`, backgroundColor: data.color }}
                     ></div>
                   </div>
-                  <div className="text-sm text-gray-600">{data.percentage}% of total</div>
+                  <div className="text-sm text-slate-400">{data.percentage}% of total</div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Monthly Progress</CardTitle>
+            <CardDescription className="text-slate-400">Track your financial progress</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {monthlyData.map((data) => (
+                <div key={data.month} className="flex items-center justify-between">
+                  <span className="font-medium text-white">{data.month}</span>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-32 bg-slate-700 rounded-full h-2">
+                      <div 
+                        className="bg-yellow-500 h-2 rounded-full" 
+                        style={{ width: `${(data.expenses / data.income) * 100}%` }}
+                      ></div>
+                    </div>
+                    <span className="font-bold text-white">${data.expenses}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Financial Summary</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm text-gray-600">Average Monthly</p>
-              <p className="text-2xl font-bold text-blue-600">$1,260</p>
-            </div>
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <p className="text-sm text-gray-600">Highest Category</p>
-              <p className="text-2xl font-bold text-green-600">Food</p>
-            </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <p className="text-sm text-gray-600">Total This Year</p>
-              <p className="text-2xl font-bold text-purple-600">$6,300</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
