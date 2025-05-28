@@ -34,7 +34,7 @@ const Index = () => {
       <Card className="w-full max-w-md shadow-lg bg-slate-800 border-slate-700">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-white">
-            💰 GestorFinanceiro
+            📊 Finty
           </CardTitle>
           <CardDescription className="text-slate-300">
             Comece sua jornada para uma melhor saúde financeira
@@ -150,7 +150,7 @@ const Navigation = ({ currentView, setCurrentView }: { currentView: string; setC
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-4">
-            <h1 className="text-xl font-bold text-white">💰 GestorFinanceiro</h1>
+            <h1 className="text-xl font-bold text-white">📊 Finty</h1>
             <div className="flex space-x-1">
               <Button
                 variant={currentView === "dashboard" ? "default" : "ghost"}
