@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,15 +12,28 @@ const Index = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [registrationStep, setRegistrationStep] = useState(1);
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [fixedExpenses, setFixedExpenses] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoggedIn(true);
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegisterStep1 = (e: React.FormEvent) => {
     e.preventDefault();
+    setRegistrationStep(2);
+  };
+
+  const handleRegisterStep2 = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Cadastro completo:", { name, email, monthlyIncome, fixedExpenses });
     setIsLoggedIn(true);
+  };
+
+  const handleBackToStep1 = () => {
+    setRegistrationStep(1);
   };
 
   if (isLoggedIn) {
@@ -80,47 +91,104 @@ const Index = () => {
             </TabsContent>
             
             <TabsContent value="register">
-              <form onSubmit={handleRegister} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-white">Nome Completo</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Digite seu nome completo"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                  />
+              {registrationStep === 1 ? (
+                <div>
+                  <div className="mb-4 text-center">
+                    <p className="text-sm text-slate-400">Etapa 1 de 2 - Informações Pessoais</p>
+                  </div>
+                  <form onSubmit={handleRegisterStep1} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-white">Nome Completo</Label>
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Digite seu nome completo"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="reg-email" className="text-white">E-mail</Label>
+                      <Input
+                        id="reg-email"
+                        type="email"
+                        placeholder="Digite seu e-mail"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="reg-password" className="text-white">Senha</Label>
+                      <Input
+                        id="reg-password"
+                        type="password"
+                        placeholder="Crie uma senha"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <Button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold">
+                      Próxima Etapa
+                    </Button>
+                  </form>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="reg-email" className="text-white">E-mail</Label>
-                  <Input
-                    id="reg-email"
-                    type="email"
-                    placeholder="Digite seu e-mail"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                  />
+              ) : (
+                <div>
+                  <div className="mb-4 text-center">
+                    <p className="text-sm text-slate-400">Etapa 2 de 2 - Informações Financeiras</p>
+                  </div>
+                  <form onSubmit={handleRegisterStep2} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="monthly-income" className="text-white">Renda Fixa Mensal</Label>
+                      <Input
+                        id="monthly-income"
+                        type="number"
+                        step="0.01"
+                        placeholder="Digite sua renda mensal (R$)"
+                        value={monthlyIncome}
+                        onChange={(e) => setMonthlyIncome(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="fixed-expenses" className="text-white">Gastos Fixos Mensais</Label>
+                      <Input
+                        id="fixed-expenses"
+                        type="number"
+                        step="0.01"
+                        placeholder="Digite seus gastos fixos (R$)"
+                        value={fixedExpenses}
+                        onChange={(e) => setFixedExpenses(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                      <p className="text-xs text-slate-400">
+                        Ex: aluguel, condomínio, financiamentos, planos, etc.
+                      </p>
+                    </div>
+                    <div className="flex space-x-3">
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={handleBackToStep1}
+                        className="flex-1 border-slate-600 text-white hover:bg-slate-700"
+                      >
+                        Voltar
+                      </Button>
+                      <Button type="submit" className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold">
+                        Criar Conta
+                      </Button>
+                    </div>
+                  </form>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="reg-password" className="text-white">Senha</Label>
-                  <Input
-                    id="reg-password"
-                    type="password"
-                    placeholder="Crie uma senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
-                  />
-                </div>
-                <Button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-semibold">
-                  Criar Conta
-                </Button>
-              </form>
+              )}
             </TabsContent>
           </Tabs>
         </CardContent>
@@ -592,4 +660,3 @@ const AnalyticsView = () => {
 };
 
 export default Index;
-
