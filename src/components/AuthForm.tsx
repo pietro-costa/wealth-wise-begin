@@ -17,6 +17,7 @@ export const AuthForm = ({ onLogin }: AuthFormProps) => {
   const [registrationStep, setRegistrationStep] = useState(1);
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [fixedExpenses, setFixedExpenses] = useState("");
+  const [savingsGoal, setSavingsGoal] = useState(""); // Meta de economia mensal
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ export const AuthForm = ({ onLogin }: AuthFormProps) => {
 
   const handleRegisterStep2 = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Cadastro completo:", { name, email, monthlyIncome, fixedExpenses });
+    console.log("Cadastro completo:", { name, email, monthlyIncome, fixedExpenses, savingsGoal });
     onLogin();
   };
 
@@ -169,6 +170,22 @@ export const AuthForm = ({ onLogin }: AuthFormProps) => {
                       />
                       <p className="text-xs text-slate-400">
                         Ex: aluguel, condomínio, financiamentos, planos, etc.
+                      </p>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="savings-goal" className="text-white">Meta de Economia Mensal</Label>
+                      <Input
+                        id="savings-goal"
+                        type="number"
+                        step="0.01"
+                        placeholder="Quanto pretende guardar por mês? (R$)"
+                        value={savingsGoal}
+                        onChange={(e) => setSavingsGoal(e.target.value)}
+                        required
+                        className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                      <p className="text-xs text-slate-400">
+                        Defina sua meta de economia mensal para acompanharmos seu progresso
                       </p>
                     </div>
                     <div className="flex space-x-3">
