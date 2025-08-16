@@ -14,26 +14,40 @@ export const Navigation = ({ currentView, setCurrentView }: NavigationProps) => 
           <div className="flex items-center space-x-4">
             <h1 className="text-xl font-bold text-white">📊 Finty</h1>
             <div className="flex space-x-1">
+              {/* Botão PAINEL */}
               <Button
                 variant={currentView === "dashboard" ? "default" : "ghost"}
                 onClick={() => setCurrentView("dashboard")}
                 className={`text-sm ${currentView === "dashboard" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
-                Painel
+                📊 Painel
               </Button>
+              
+              {/* Botão ADICIONAR GASTO */}
               <Button
                 variant={currentView === "add-expense" ? "default" : "ghost"}
                 onClick={() => setCurrentView("add-expense")}
                 className={`text-sm ${currentView === "add-expense" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
-                Adicionar Gasto
+                ➕ Adicionar Gasto
               </Button>
+              
+              {/* Botão ANÁLISES */}
               <Button
                 variant={currentView === "analytics" ? "default" : "ghost"}
                 onClick={() => setCurrentView("analytics")}
                 className={`text-sm ${currentView === "analytics" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
               >
-                Análises
+                📈 Análises
+              </Button>
+              
+              {/* Botão CONFIGURAÇÕES - NOVO! */}
+              <Button
+                variant={currentView === "settings" ? "default" : "ghost"}
+                onClick={() => setCurrentView("settings")}
+                className={`text-sm ${currentView === "settings" ? "bg-yellow-500 text-slate-900 hover:bg-yellow-600" : "text-white hover:bg-slate-700"}`}
+              >
+                ⚙️ Configurações
               </Button>
             </div>
           </div>
